@@ -13,14 +13,16 @@ import {
 
 import SideBar from './components/SideBar';
 
-const DrawerNavigator = createDrawerNavigator({
-  AccountPage,
-  AssignedWorkflowsPage,
-  CreateNewWorkflowPage,
-  WorkflowAssignmentsPage
-},
-{
-  contentcomponent: props => <SideBar {...props} />
-});
+const DrawerNavigator = createDrawerNavigator(
+  {
+    AccountPage,
+    AssignedWorkflowsPage,
+    CreateNewWorkflowPage,
+    WorkflowAssignmentsPage
+  },
+  {
+    contentComponent: props => <SideBar {...props} />
+  }
+);
 
 export default createAppContainer(DrawerNavigator);
