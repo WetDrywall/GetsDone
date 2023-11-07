@@ -20,7 +20,7 @@ const DrawerNavigator = createDrawerNavigator({
   WorkflowAssignmentsPage
 },
 {
-  contentcomponent: props => <SideBar {...props} />
+  contentComponent: props => <SideBar {...props} />
 });
 
 export default createAppContainer(DrawerNavigator);
