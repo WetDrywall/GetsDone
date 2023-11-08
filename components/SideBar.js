@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, ImageBackground, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ImageBackground, Image, SafeAreaView } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
-import { Ionicons } from '@expo/vector-icons';
 
 export default Sidebar = props => (
-   <ScrollView>
+   <SafeAreaView style={{ flex: 1 }}>
+     <ScrollView>
        <ImageBackground source={require('../assets/Banner.png')} style={{ width: undefined, padding: 16, paddingTop: 48 }}>
             <Image source={require('../assets/Default_Profile_Picture.png')} style={styles.profile} />
             <Text style={styles.name}>Walter W. White</Text>
@@ -15,7 +15,8 @@ export default Sidebar = props => (
                 <DrawerItemList {...props} />
             </DrawerContentScrollView>
        </View>
-   </ScrollView>
+     </ScrollView>
+   </SafeAreaView>
 );
 
 const styles = StyleSheet.create({

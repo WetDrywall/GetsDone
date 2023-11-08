@@ -1,6 +1,8 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import { Feather } from '@expo/vector-icons';
+import { Dimensions } from 'react-native';
 
 import AccountPage from './pages/AccountPage';
 import AssignedWorkflowsPage from './pages/AssignedWorkflowsPage';
@@ -14,11 +16,11 @@ const Drawer = createDrawerNavigator();
 export default function App() {
  return (
    <NavigationContainer>
-     <Drawer.Navigator drawerContent={props => <SideBar {...props} />}>
-       <Drawer.Screen name="Account" component={AccountPage} />
-       <Drawer.Screen name="AssignedWorkflows" component={AssignedWorkflowsPage} />
-       <Drawer.Screen name="CreateNewWorkflow" component={CreateNewWorkflowPage} />
-       <Drawer.Screen name="WorkflowAssignments" component={WorkflowAssignmentsPage} />
+     <Drawer.Navigator drawerContent={props => <SideBar {...props} drawerWidth={Dimensions.get("window").width * 0.75} />}>
+       <Drawer.Screen name="Account" component={AccountPage} options={{drawerIcon: ({ tintColor }) => <Feather name="user" size={16} color={tintColor} />}} />
+       <Drawer.Screen name="My Workflows" component={AssignedWorkflowsPage} options={{drawerIcon: ({ tintColor }) => <Feather name="archive" size={16} color={tintColor} />}} />
+       <Drawer.Screen name="New Workflow" component={CreateNewWorkflowPage} options={{drawerIcon: ({ tintColor }) => <Feather name="edit" size={16} color={tintColor} />}} />
+       <Drawer.Screen name="Workflow Assignments" component={WorkflowAssignmentsPage} options={{drawerIcon: ({ tintColor }) => <Feather name="coffee" size={16} color={tintColor} />}} />
      </Drawer.Navigator>
    </NavigationContainer>
  );
