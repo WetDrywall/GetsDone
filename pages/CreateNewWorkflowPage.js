@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 const CreateNewWorkflowPage = () => {
     return (
         <View>
-            <Text>CreateNewWorkflowPage HelloWorld</Text>
+            <Text>CreateNewWorkflow</Text>
         </View>
     );
 };

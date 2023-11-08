@@ -1,12 +1,38 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, ImageBackground, Image } from 'react-native';
-import { DrawerNavigationItems } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 
 export default Sidebar = props => (
    <ScrollView>
-       <Text>Sidebar</Text>
+       <ImageBackground source={require('../assets/Banner.png')} style={{ width: undefined, padding: 16, paddingTop: 48 }}>
+            <Image source={require('../assets/Default_Profile_Picture.png')} style={styles.profile} />
+            <Text style={styles.name}>Walter W. White</Text>
+       </ImageBackground>
+
+       <View style={styles.container}>
+            <DrawerContentScrollView {...props}>
+                <DrawerItemList {...props} />
+            </DrawerContentScrollView>
+       </View>
    </ScrollView>
 );
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    profile: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        borderWidth: 3,
+        borderColor: "#FFF"
+    },
+    name: {
+        color: "#FFF",
+        fontSize: 20,
+        fontWeight: "800",
+        marginVertical: 8
+    }
+});
