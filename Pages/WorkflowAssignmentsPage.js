@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 const WorkflowAssignmentsPage = () => {
     return (
         <View>
-            <Text>Hello, World!</Text>
+            <Text> WorkflowAssignmentsPage Hello, World!</Text>
         </View>
     );
 };

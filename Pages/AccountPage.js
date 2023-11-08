@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 const AccountPage = () => {
     return (
         <View>
-            <Text>Hello, World!</Text>
+            <Text> AccountPage Hello, World!</Text>
         </View>
     );
 };

@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 export default function AssignedWorkflowsPage() {
     return (
         <View>
-            <Text>Hello, World!</Text>
+            <Text> AssignedWorkflowsPage Hello, World!</Text>
         </View>
     );
 }
