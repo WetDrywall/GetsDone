@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import WorkflowCard from '../components/WorkFlowCard';
 
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
     const formattedDeadline = deadline.toLocaleDateString("en-GB", { day: 'numeric', month: 'numeric', year: 'numeric' });
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <WorkflowCard
                 title="Test Title 1"
                 description="Lorem ipsum dolor sit amet, clita appetere convenire ierfecto consequuntur eu. Veri assum veniam sit ne, usu albucius dissentias ne. Dicunt ponderum mnesarchum no ius, probatus perpetua pro ut. Eu legimus pertinacia accommodare mea, cu explicari complectitur sit."
@@ -23,15 +23,13 @@ const App = () => {
                 description="Lorem ipsum dolor sit amet, c Eu legimus pertinacia accommodare mea, cu explicari complectitur sit."
                 deadline={formattedDeadline}
             />
-        </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });
 
