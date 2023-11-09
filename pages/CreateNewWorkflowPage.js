@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
+import { Dimensions } from 'react-native';
 
 const CreateNewWorkflowPage = () => {
     const [showForm, setShowForm] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [selectedUser, setSelectedUser] = useState('user1');
+    const [selectedUser, setSelectedUser] = useState('');
 
-    const users = ['user1', 'user2', 'user3'];
+    const users = ['Kevin@gmail.com', 'TeisDenSeje@gmail.com', 'Test@gmail.com'];
+
+    const handleCreate = () => {
+        // Handle the creation of the new workflow here
+    };
 
     return (
         <View style={styles.container}>
@@ -17,23 +22,32 @@ const CreateNewWorkflowPage = () => {
                 <Icon name="add-circle-outline" size={30} color="#000" />
             </TouchableOpacity>
             {showForm && (
-                <View>
+                <View style={styles.formContainer}>
+                    <Text style={styles.label}>Title</Text>
                     <TextInput
-                        style={styles.input}
+                        style={styles.textInput}
                         onChangeText={text => setTitle(text)}
                         value={title}
                         placeholder="Title"
                     />
+                    <Text style={styles.label}>Description</Text>
                     <TextInput
-                        style={styles.input}
+                        style={styles.descriptionInput}
                         onChangeText={text => setDescription(text)}
                         value={description}
                         placeholder="Description"
+                        multiline={true}
                     />
+                    <Text style={styles.label}>Assigned User</Text>
                     <RNPickerSelect
                         onValueChange={(value) => setSelectedUser(value)}
                         items={users.map(user => ({ label: user, value: user }))}
                         style={pickerSelectStyles}
+                    />
+                    <Button
+                        title="Create"
+                        onPress={handleCreate}
+                        color="#007BFF"
                     />
                 </View>
             )}
@@ -57,19 +71,37 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
     },
-    input: {
+    formContainer: {
+        width: Dimensions.get('window').width * 0.8,
+        padding: 10,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+    },
+    label: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    textInput: {
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
-        margin: 10,
+        marginBottom: 10,
         padding: 5,
     },
+    descriptionInput: {
+        minHeight: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginBottom: 10,
+        padding: 5,
+    }
 });
 
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
         height: 40,
-        margin: 10,
+        marginBottom: 10,
     },
 });
 
