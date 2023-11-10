@@ -3,15 +3,15 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 
 const AssignmentList = () => {
     const activeAssignments = [
-        // Add your active assignments here
+        // Add active assignments here
     ];
 
     const inactiveAssignments = [
-        // Add your inactive out assignments here
+        // Add inactive out assignments here
     ];
 
     const finishedAssignments = [
-        // Add your finished assignments here
+        // Add finished assignments here
     ];
 
     const renderItem = ({ item }) => (
