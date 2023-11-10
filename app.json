@@ -4,12 +4,12 @@
     "slug": "GetsDone",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Logo_Diamond.png",
+    "icon": "./assets/Penguin.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Logo_Diamond.png",
+      "image": "./assets/Penguin.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#8a00e6"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Logo_Diamond.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/Penguin.png",
+        "backgroundColor": "#8a00e6"
       }
     },
     "web": {
-      "favicon": "./assets/Logo_Diamond.png"
+      "favicon": "./assets/Penguin.png"
     }
   }
 }
