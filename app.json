@@ -4,10 +4,10 @@
     "slug": "GetsDone",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Penguin.png",
+    "icon": "./assets/Logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Penguin.png",
+      "image": "./assets/Logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#8a00e6"
     },
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Penguin.png",
+        "foregroundImage": "./assets/Logo.png",
         "backgroundColor": "#8a00e6"
       }
     },
     "web": {
-      "favicon": "./assets/Penguin.png"
+      "favicon": "./assets/Logo.png"
     }
   }
 }
