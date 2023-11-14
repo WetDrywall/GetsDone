@@ -1,22 +1,42 @@
 import { View, Text, StyleSheet, Dimensions, Animated, Pressable } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const WorkflowCard = ({ title, description, deadline }) => {
-  const [isPressed, setIsPressed] = useState(false);
-  const handlePress = () => {
-    setIsPressed(isPressed ? false : true);
-  };
+    const [isPressed, setIsPressed] = useState(false);
+    const handlePress = () => {
+        setIsPressed(isPressed ? false : true);
+    };
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  return (
-      <TouchableOpacity style={[isPressed ? styles.pressedCard : styles.card]} onPress={handlePress}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.description} numberOfLines={3}>
-              {description?.substring(0, 120)}...
-          </Text>
-          <Text style={styles.date}>{deadline}</Text>
-      </TouchableOpacity>
-  );
+    const url = "https://e04b-185-93-87-250.ngrok-free.app/api/ListWorkflow?wfid=0&uid=1"
+
+    useEffect(() => {
+        fetch(url)
+        .then((resp) => resp.json())
+        .then((json) => setData(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }, []);
+
+    return (
+        <TouchableOpacity style={[isPressed ? styles.pressedCard : styles.card]} onPress={handlePress}>
+            {loading ? (
+                <Text>Loading...</Text>
+            ) : (
+                data.map((post) => {
+                return (
+                    <View>
+                        <Text style={styles.title}>{post.title}</Text>
+                        <Text style={styles.description} numberOfLines={3}>{post.description.substring(0, 120)}...</Text>
+                        <Text style={styles.date}>{deadline}</Text>
+                    </View>
+                );
+                })
+            )}
+        </TouchableOpacity>
+    );
 };
 
 const styles = StyleSheet.create({
