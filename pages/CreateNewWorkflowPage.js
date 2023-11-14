@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from 'rea
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
 import { Dimensions } from 'react-native';
+import { fgColor, bgColor, containerColor, textFieldColor, placeHolderColor } from '../components/Colors';
 
 const CreateNewWorkflowPage = () => {
     const [showForm, setShowForm] = useState(false);
@@ -42,7 +43,7 @@ const CreateNewWorkflowPage = () => {
                     <RNPickerSelect
                         onValueChange={(value) => setSelectedUser(value)}
                         items={users.map(user => ({ label: user, value: user }))}
-                        style={pickerSelectStyles}
+                        style={styles.dropdown}
                     />
                     <Button
                         title="Create"
@@ -60,49 +61,59 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: bgColor
     },
     box: {
         width: 50,
         height: 50,
-        backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 25,
         position: 'absolute',
         bottom: 20,
+        backgroundColor: "#FFF"
     },
     formContainer: {
-        width: Dimensions.get('window').width * 0.8,
+        width: Dimensions.get('window').width * 0.9,
         padding: 10,
-        backgroundColor: '#fff',
         borderRadius: 10,
+        backgroundColor: containerColor
     },
     label: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         marginBottom: 5,
+        color: fgColor
     },
     textInput: {
         height: 40,
-        borderColor: 'gray',
+        borderColor: "transparent",
         borderWidth: 1,
+        borderRadius: 10,
         marginBottom: 10,
         padding: 5,
+        color: fgColor,
+        backgroundColor: textFieldColor
     },
     descriptionInput: {
         minHeight: 40,
-        borderColor: 'gray',
+        borderColor: "transparent",
         borderWidth: 1,
+        borderRadius: 10,
         marginBottom: 10,
         padding: 5,
-    }
-});
-
-const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-        height: 40,
-        marginBottom: 10,
+        color: fgColor,
+        backgroundColor: textFieldColor
     },
+    dropdown: {
+        height: 40,
+        borderWidth: 1,
+        borderRadius: 10,
+        marginBottom: 10,
+        padding: 5,
+        color: fgColor,
+        backgroundColor: textFieldColor
+    }
 });
 
 export default CreateNewWorkflowPage;
