@@ -1,12 +1,22 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, ImageBackground, Image, SafeAreaView } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { bgColor } from './Colors';
 
 export default Sidebar = props => (
-   <SafeAreaView style={{ flex: 1 }}>
+   <SafeAreaView style={{ flex: 1 }} backgroundColor={bgColor}>
      <ScrollView>
-       <ImageBackground source={require('../assets/Banner.png')} style={{ width: undefined, padding: 16, paddingTop: 48 }}>
-            <Image source={require('../assets/Default_Profile_Picture.png')} style={styles.profile} />
+       <ImageBackground
+            source={require('../assets/Banner.png')}
+            style={{
+                width: undefined,
+                padding: 16,
+                paddingTop: 48
+                }}>
+            <Image
+                source={require('../assets/Default_Profile_Picture.png')}
+                style={styles.profile}
+            />
             <Text style={styles.name}>Walter W. White</Text>
        </ImageBackground>
 
