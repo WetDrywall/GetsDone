@@ -4,12 +4,12 @@
     "slug": "GetsDone",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Logo.png",
+    "icon": "./assets/Logo_x.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Logo.png",
+      "image": "./assets/Logo_x.png",
       "resizeMode": "contain",
-      "backgroundColor": "#8a00e6"
+      "backgroundColor": "#0d0d0d"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Logo.png",
-        "backgroundColor": "#8a00e6"
+        "foregroundImage": "./assets/Logo_x.png",
+        "backgroundColor": "#0d0d0d"
       }
     },
     "web": {
-      "favicon": "./assets/Logo.png"
+      "favicon": "./assets/Logo_x.png"
     }
   }
 }
