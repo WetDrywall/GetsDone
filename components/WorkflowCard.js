@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, Animated, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { fgColor, containerColor } from './Colors';
@@ -6,7 +6,7 @@ import { fgColor, containerColor } from './Colors';
 const WorkflowCard = ({ title, description, deadline }) => {
     const [isPressed, setIsPressed] = useState(false);
     const handlePress = () => {
-        setIsPressed(isPressed ? false : true);
+        
     };
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -22,7 +22,7 @@ const WorkflowCard = ({ title, description, deadline }) => {
     }, []);
 
     return (
-        <TouchableOpacity style={[isPressed ? styles.pressedCard : styles.card]} onPress={handlePress}>
+        <TouchableOpacity style={styles.card} onPress={handlePress}>
             {loading ? (
                 <Text>Loading...</Text>
             ) : (
@@ -68,19 +68,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: fgColor
-    },
-    pressedCard: {
-      height: 300,
-      width: Dimensions.get('window').width * 0.95,
-      backgroundColor: containerColor,
-      borderRadius: 10,
-      padding: 10,
-      margin: 5,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.2,
-      shadowRadius: 5,
-      elevation: 3,
     },
 });
 
