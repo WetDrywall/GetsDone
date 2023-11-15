@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
@@ -10,8 +10,23 @@ const CreateNewWorkflowPage = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [selectedUser, setSelectedUser] = useState('');
+    const [users, setUsers] = useState([]);
 
-    const users = ['Kevin@gmail.com', 'TeisDenSeje@gmail.com', 'Test@gmail.com'];
+    useEffect(() => {
+        fetch('https://817b-212-242-99-233.ngrok-free.app/api/ListUsers?uid=0')
+        .then(response => response.json())
+        .then(data => {
+            const emails = data.map(user => user.email);
+            return emails;
+        })
+        .then(emails => {
+            console.log(emails); // This will log the array of emails to the console
+            setUsers(emails);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
 
     const handleCreate = () => {
         // Handle the creation of the new workflow here
