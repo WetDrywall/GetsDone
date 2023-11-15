@@ -9,7 +9,7 @@ import CreateNewWorkflowPage from './pages/CreateNewWorkflowPage';
 import AccountPage from './pages/AccountPage';
 
 import SideBar from './components/SideBar';
-import { fgColor } from './components//Colors';
+import { fgColor, headerTitleColor } from './components//Colors';
 
 const Drawer = createDrawerNavigator();
 
@@ -22,7 +22,11 @@ export default function App() {
           component={AssignedWorkflowsPage}
           options={{
             drawerIcon: () => <Feather name="archive" size={16} color={fgColor} />,
-            drawerLabel: ({ focused }) => <Text style={{ color: focused ? '#4d79ff' : fgColor }}>My Workflows</Text>
+            drawerLabel: ({ focused }) => <Text style={{ color: focused ? '#4d79ff' : fgColor }}>My Workflows</Text>,
+            headerTintColor: fgColor,
+            headerStyle: {
+              backgroundColor: headerTitleColor
+            }
           }}
        />
        <Drawer.Screen
@@ -30,7 +34,11 @@ export default function App() {
           component={CreateNewWorkflowPage}
           options={{
             drawerIcon: () => <Feather name="edit" size={16} color={fgColor} />,
-            drawerLabel: ({ focused }) => <Text style={{ color: focused ? '#4d79ff' : fgColor }}>Create Workflow</Text>
+            drawerLabel: ({ focused }) => <Text style={{ color: focused ? '#4d79ff' : fgColor }}>Create Workflow</Text>,
+            headerTintColor: fgColor,
+            headerStyle: {
+              backgroundColor: headerTitleColor
+            }
           }}
           />
        <Drawer.Screen
@@ -38,7 +46,11 @@ export default function App() {
           component={AccountPage}
           options={{
             drawerIcon: () => <Feather name="user" size={16} color={fgColor} />,
-            drawerLabel: ({ focused }) => <Text style={{ color: focused ? '#4d79ff' : fgColor }}>Account</Text>
+            drawerLabel: ({ focused }) => <Text style={{ color: focused ? '#4d79ff' : fgColor }}>Account</Text>,
+            headerTintColor: fgColor,
+            headerStyle: {
+              backgroundColor: headerTitleColor
+            }
         }}
           />
      </Drawer.Navigator>

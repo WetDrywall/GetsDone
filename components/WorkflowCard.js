@@ -11,7 +11,7 @@ const WorkflowCard = ({ title, description, deadline }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const url = "https://e04b-185-93-87-250.ngrok-free.app/api/ListWorkflow?wfid=0&uid=1"
+    const url = "https://5295-212-242-99-233.ngrok-free.app/api/ListWorkflow?wfid=0&uid=1"
 
     useEffect(() => {
         fetch(url)

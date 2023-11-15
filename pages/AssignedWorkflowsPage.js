@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import WorkflowCard from '../components/WorkflowCard';
+import { bgColor } from '../components/Colors';
 
 const App = () => {
     const deadline = new Date(Date.now());
@@ -35,6 +36,7 @@ const App = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: bgColor
     },
 });
 

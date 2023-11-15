@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from 'rea
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
 import { Dimensions } from 'react-native';
-import { fgColor, bgColor, containerColor, textFieldColor, placeHolderColor } from '../components/Colors';
+import { fgColor, bgColor, containerColor, textFieldColor, placeholderColor, btnColor, btnIconColor } from '../components/Colors';
 
 const CreateNewWorkflowPage = () => {
     const [showForm, setShowForm] = useState(false);
@@ -20,7 +20,7 @@ const CreateNewWorkflowPage = () => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.box} onPress={() => setShowForm(!showForm)}>
-                <Icon name="add-circle-outline" size={30} color="#000" />
+                <Icon name="add-circle-outline" size={30} color={btnIconColor} />
             </TouchableOpacity>
             {showForm && (
                 <View style={styles.formContainer}>
@@ -30,6 +30,7 @@ const CreateNewWorkflowPage = () => {
                         onChangeText={text => setTitle(text)}
                         value={title}
                         placeholder="Title"
+                        placeholderTextColor={placeholderColor}
                     />
                     <Text style={styles.label}>Description</Text>
                     <TextInput
@@ -37,6 +38,7 @@ const CreateNewWorkflowPage = () => {
                         onChangeText={text => setDescription(text)}
                         value={description}
                         placeholder="Description"
+                        placeholderTextColor={placeholderColor}
                         multiline={true}
                     />
                     <Text style={styles.label}>Assigned User</Text>
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         position: 'absolute',
         bottom: 20,
-        backgroundColor: "#FFF"
+        backgroundColor: btnColor
     },
     formContainer: {
         width: Dimensions.get('window').width * 0.9,
