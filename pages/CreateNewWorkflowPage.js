@@ -30,6 +30,21 @@ const CreateNewWorkflowPage = () => {
 
     const handleCreate = () => {
         // Handle the creation of the new workflow here
+        //WOwner skal vi få fra login
+        //WUser skal vi få fra dropdown
+        //Wfid skal være 0 hvis det er en ny, 
+        const apiUrl = `https://817b-212-242-99-233.ngrok-free.app/api/SaveWorkflow?wfid=0&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(description)}&wOwner=1&wUser=` + selectedUser;
+
+        console.log(apiUrl);
+
+        fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // This will log the response to the console
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     };
 
     return (
