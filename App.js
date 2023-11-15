@@ -17,7 +17,10 @@ const Drawer = createDrawerNavigator();
 export default function App() {
  return (
    <NavigationContainer>
-     <Drawer.Navigator drawerContent={props => <SideBar {...props} drawerWidth={Dimensions.get("window").width * 0.75} />}>
+     <Drawer.Navigator
+        initialRouteName="Login"
+        drawerContent={props => <SideBar {...props} drawerWidth={Dimensions.get("window").width * 0.75} />}
+    >
        <Drawer.Screen
           name="My Workflows"
           component={AssignedWorkflowsPage}
