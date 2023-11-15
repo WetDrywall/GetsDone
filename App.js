@@ -7,6 +7,7 @@ import { Dimensions, Text } from 'react-native';
 import AssignedWorkflowsPage from './pages/AssignedWorkflowsPage';
 import CreateNewWorkflowPage from './pages/CreateNewWorkflowPage';
 import AccountPage from './pages/AccountPage';
+import LoginPage from './pages/LoginPage';
 
 import SideBar from './components/SideBar';
 import { fgColor, headerTitleColor } from './components//Colors';
@@ -47,6 +48,18 @@ export default function App() {
           options={{
             drawerIcon: () => <Feather name="user" size={16} color={fgColor} />,
             drawerLabel: ({ focused }) => <Text style={{ color: focused ? '#4d79ff' : fgColor }}>Account</Text>,
+            headerTintColor: fgColor,
+            headerStyle: {
+              backgroundColor: headerTitleColor
+            }
+        }}
+          />
+          <Drawer.Screen
+          name="Login"
+          component={LoginPage}
+          options={{
+            drawerIcon: () => <Feather name="log-in" size={16} color={fgColor} />,
+            drawerLabel: ({ focused }) => <Text style={{ color: focused ? '#4d79ff' : fgColor }}>Login</Text>,
             headerTintColor: fgColor,
             headerStyle: {
               backgroundColor: headerTitleColor
