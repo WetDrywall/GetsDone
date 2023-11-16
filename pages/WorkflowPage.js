@@ -1,7 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
+import { TouchableOpacity } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
-const AssignmentList = () => {
+const AssignmentList = ({ navigation, route }) => {
+  const { title, description, deadline } = route.params;
+
   const activeAssignments = [
     // Add active assignments here
   ];
@@ -27,6 +31,9 @@ const AssignmentList = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate("My Workflows")}>
+        <Feather name="corner-up-left" size={30} color="black" />
+      </TouchableOpacity>
       <View style={styles.topBox}>
         <Text style={styles.title}>Title</Text>
       </View>

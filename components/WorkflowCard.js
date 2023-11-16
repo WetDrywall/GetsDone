@@ -6,12 +6,16 @@ import { apiLink } from "./ApiConfig";
 
 const WorkflowCard = ({ navigation, title, description, deadline }) => {
   const handlePress = () => {
-    navigation.navigate("Workflow");
+    navigation.navigate("Workflow", {
+      title: title,
+      description: description,
+      deadline: deadline,
+    });
   };
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const url = `${apiLink}/api/ListWorkflow?wfid=0&uid=1`;
+  const url = `${apiLink}/api/ListWorkflow?wfid=1&uid=1`;
 
   useEffect(() => {
     fetch(url)
