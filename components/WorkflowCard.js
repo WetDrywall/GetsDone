@@ -4,13 +4,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { fgColor, containerColor } from "./Colors";
 import { apiLink } from "./ApiConfig";
 
-const WorkflowCard = ({ navigation, title, description, deadline }) => {
+const WorkflowCard = ({ navigation }) => {
   const handlePress = () => {
-    navigation.navigate("Workflow", {
-      title: title,
-      description: description,
-      deadline: deadline,
-    });
+    navigation.navigate("Workflow");
   };
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

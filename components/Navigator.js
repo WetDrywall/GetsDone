@@ -101,6 +101,10 @@ export default function Navigator() {
           component={WorkflowPage}
           options={{
             drawerItemStyle: { display: "none" },
+            headerTintColor: fgColor,
+            headerStyle: {
+              backgroundColor: headerTitleColor,
+            },
           }}
         />
       </Drawer.Navigator>

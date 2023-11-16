@@ -2,6 +2,25 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import {
+  fgColor,
+  bgColor,
+  btnColor,
+  containerColor,
+} from "../components/Colors";
+
+const [data, setData] = useState([]);
+const [loading, setLoading] = useState(true);
+
+const url = `${apiLink}/api/ListWorkflow?wfid=1&uid=1`;
+
+useEffect(() => {
+  fetch(url)
+    .then((resp) => resp.json())
+    .then((json) => setData(json))
+    .catch((error) => console.error(error))
+    .finally(() => setLoading(false));
+}, []);
 
 const AssignmentList = ({ navigation, route }) => {
   const { title, description, deadline } = route.params;
@@ -18,23 +37,17 @@ const AssignmentList = ({ navigation, route }) => {
     // Add finished assignments here
   ];
 
-  const renderItem = ({ item }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.assignedUser}>
-        Assigned User: {item.assignedUser}
-      </Text>
-      <Text style={styles.deadline}>Deadline: {item.deadline}</Text>
-    </View>
-  );
-
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate("My Workflows")}>
-        <Feather name="corner-up-left" size={30} color="black" />
+        <Feather name="corner-up-left" size={30} color={btnColor} />
       </TouchableOpacity>
-      <View style={styles.topBox}>
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        data.map((post) => {
+          return (
+            <View style={styles.topBox}>
         <Text style={styles.title}>Title</Text>
       </View>
       <View style={styles.bottomBox}>
@@ -55,6 +68,9 @@ const AssignmentList = ({ navigation, route }) => {
         />
       </View>
     </View>
+          );
+        })
+      )}
   );
 };
 
@@ -62,9 +78,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    backgroundColor: bgColor,
   },
   topBox: {
-    backgroundColor: "#fff",
+    backgroundColor: containerColor,
     borderRadius: 10,
     padding: 10,
     margin: 5,
@@ -75,7 +92,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   bottomBox: {
-    backgroundColor: "#fff",
+    backgroundColor: containerColor,
     borderRadius: 10,
     padding: 10,
     margin: 5,
@@ -88,21 +105,20 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    color: fgColor,
   },
   description: {
     fontSize: 16,
+    color: fgColor,
   },
   assignedUser: {
     fontSize: 16,
-    color: "grey",
+    color: fgColor,
   },
   deadline: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "grey",
-  },
-  item: {
-    marginBottom: 10,
+    color: fgColor,
   },
 });
 
