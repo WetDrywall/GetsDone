@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import WorkflowCard from "../components/WorkflowCard";
 import { bgColor } from "../components/Colors";
 
-const App = () => {
+const App = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <WorkflowCard
