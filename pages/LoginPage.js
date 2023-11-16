@@ -8,13 +8,13 @@ import {
 } from "../components/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const LoginPage = () => {
+const LoginPage = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const login = () => {
     // Handle the login logic here
-    const apiUrl = `https://817b-212-242-99-233.ngrok-free.app/api/UserLogin?email=${encodeURIComponent(
+    const apiUrl = `https://da8a-185-93-87-250.ngrok-free.app/api/UserLogin?email=${encodeURIComponent(
       email
     )}&password=${encodeURIComponent(password)}`;
 
@@ -22,7 +22,11 @@ const LoginPage = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data); // This will log the response to the console
-        AsyncStorage.setItem("UId", JSON.stringify(data.UId));
+        if(data[0].uId != null && data[0].uId > 0){
+          console.log('smidt i asyncstorage');
+          AsyncStorage.setItem("UId", JSON.stringify(data[0].uId));
+          handleLogin(data[0].uId);
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -54,7 +58,7 @@ const LoginPage = () => {
         placeholderTextColor={placeholderColor}
         secureTextEntry
       />
-      <Button title="Login" onPress={handleLogin} />
+      <Button title="Login" onPress={login} />
     </View>
   );
 };

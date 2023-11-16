@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
@@ -13,9 +13,21 @@ import WorkflowPage from "../pages/WorkflowPage";
 import SideBar from "./SideBar";
 import { fgColor, headerTitleColor } from "./Colors";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const Drawer = createDrawerNavigator();
 
-export default function Navigator() {
+export default function Navigator({ isLoggedIn, handleLogin }) {
+  useEffect(() => {
+    AsyncStorage.getItem('UId')
+      .then(value => {
+        handleLogin(value);
+      })
+      .catch(e => {
+        // handle error
+      });
+   }, []);
+   
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -43,6 +55,7 @@ export default function Navigator() {
             headerStyle: {
               backgroundColor: headerTitleColor,
             },
+            drawerItemStyle: { display: isLoggedIn ? "" : "none" },
           }}
         />
         <Drawer.Screen
@@ -59,6 +72,7 @@ export default function Navigator() {
             headerStyle: {
               backgroundColor: headerTitleColor,
             },
+            drawerItemStyle: { display: isLoggedIn ? "" : "none" },
           }}
         />
         <Drawer.Screen
@@ -75,11 +89,12 @@ export default function Navigator() {
             headerStyle: {
               backgroundColor: headerTitleColor,
             },
+            drawerItemStyle: { display: isLoggedIn ? "" : "none" },
           }}
         />
         <Drawer.Screen
           name="Login"
-          component={LoginPage}
+          component={props => <LoginPage {...props} handleLogin={handleLogin} />}
           options={{
             drawerIcon: () => (
               <Feather name="log-in" size={16} color={fgColor} />
@@ -93,6 +108,7 @@ export default function Navigator() {
             headerStyle: {
               backgroundColor: headerTitleColor,
             },
+            drawerItemStyle: { display: isLoggedIn ? "none" : "" },
           }}
         />
 
