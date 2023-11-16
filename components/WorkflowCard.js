@@ -2,16 +2,16 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { fgColor, containerColor } from './Colors';
+import { apiLink } from './ApiConfig';
 
-const WorkflowCard = ({ title, description, deadline }) => {
-    const [isPressed, setIsPressed] = useState(false);
+const WorkflowCard = ({ navigation, title, description, deadline }) => {
     const handlePress = () => {
-        
+      navigation.navigate('Workflow');
     };
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const url = "https://817b-212-242-99-233.ngrok-free.app/api/ListWorkflow?wfid=0&uid=1"
+    const url = `${apiLink}/api/ListWorkflow?wfid=0&uid=1`;
 
     useEffect(() => {
         fetch(url)
@@ -27,7 +27,7 @@ const WorkflowCard = ({ title, description, deadline }) => {
                 <Text>Loading...</Text>
             ) : (
                 data.map((post) => {
-                return (
+                return (    
                     <View>
                         <Text style={styles.title}>{post.title}</Text>
                         <Text style={styles.description} numberOfLines={3}>{post.description.substring(0, 120)}...</Text>

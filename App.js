@@ -8,6 +8,7 @@ import AssignedWorkflowsPage from './pages/AssignedWorkflowsPage';
 import CreateNewWorkflowPage from './pages/CreateNewWorkflowPage';
 import AccountPage from './pages/AccountPage';
 import LoginPage from './pages/LoginPage';
+import WorkflowPage from './pages/WorkflowPage';
 
 import SideBar from './components/SideBar';
 import { fgColor, headerTitleColor } from './components//Colors';
@@ -68,6 +69,14 @@ export default function App() {
               backgroundColor: headerTitleColor
             }
         }}
+          />
+
+          <Drawer.Screen
+          name="Workflow"
+          component={WorkflowPage}
+          options={{
+            drawerItemStyle: { display: "none" }
+          }}
           />
      </Drawer.Navigator>
    </NavigationContainer>
