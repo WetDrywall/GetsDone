@@ -1,5 +1,5 @@
-import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import {
@@ -8,21 +8,22 @@ import {
   btnColor,
   containerColor,
 } from "../components/Colors";
-
-const [data, setData] = useState([]);
-const [loading, setLoading] = useState(true);
-
-const url = `${apiLink}/api/ListWorkflow?wfid=1&uid=1`;
-
-useEffect(() => {
-  fetch(url)
-    .then((resp) => resp.json())
-    .then((json) => setData(json))
-    .catch((error) => console.error(error))
-    .finally(() => setLoading(false));
-}, []);
+import { apiLink } from "../components/ApiConfig";
 
 const AssignmentList = ({ navigation, route }) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const url = `${apiLink}/api/ListWorkflow?wfid=1&uid=1`;
+
+  useEffect(() => {
+    fetch(url)
+      .then((resp) => resp.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
+
   const { title, description, deadline } = route.params;
 
   const activeAssignments = [
@@ -47,30 +48,32 @@ const AssignmentList = ({ navigation, route }) => {
       ) : (
         data.map((post) => {
           return (
-            <View style={styles.topBox}>
-        <Text style={styles.title}>Title</Text>
-      </View>
-      <View style={styles.bottomBox}>
-        <FlatList
-          data={activeAssignments}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-        <FlatList
-          data={inactiveAssignments}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-        <FlatList
-          data={finishedAssignments}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-    </View>
+            <>
+              <View style={styles.topBox}>
+                <Text style={styles.title}>Title</Text>
+              </View>
+              <View style={styles.bottomBox}>
+                <FlatList
+                  data={activeAssignments}
+                  renderItem={renderItem}
+                  keyExtractor={(item) => item.id}
+                />
+                <FlatList
+                  data={inactiveAssignments}
+                  renderItem={renderItem}
+                  keyExtractor={(item) => item.id}
+                />
+                <FlatList
+                  data={finishedAssignments}
+                  renderItem={renderItem}
+                  keyExtractor={(item) => item.id}
+                />
+              </View>
+            </>
           );
         })
       )}
+    </View>
   );
 };
 
