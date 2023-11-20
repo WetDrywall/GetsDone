@@ -10,11 +10,12 @@ import {
 } from "../components/Colors";
 import { apiLink } from "../components/ApiConfig";
 
-const AssignmentList = ({ navigation, route }) => {
+const AssignmentList = ({ navigation }) => {
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const url = `${apiLink}/api/ListWorkflow?wfid=1&uid=1`;
+  const url = `${apiLink}api/ListWorkflowAssignment?wfid=1&aid>0`;
 
   useEffect(() => {
     fetch(url)
@@ -23,20 +24,6 @@ const AssignmentList = ({ navigation, route }) => {
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   }, []);
-
-  const { title, description, deadline } = route.params;
-
-  const activeAssignments = [
-    // Add active assignments here
-  ];
-
-  const inactiveAssignments = [
-    // Add inactive out assignments here
-  ];
-
-  const finishedAssignments = [
-    // Add finished assignments here
-  ];
 
   return (
     <View style={styles.container}>
@@ -50,25 +37,24 @@ const AssignmentList = ({ navigation, route }) => {
           return (
             <>
               <View style={styles.topBox}>
-                <Text style={styles.title}>Title</Text>
+                <Text style={styles.title}>{post.title}</Text>
+                <Text style={styles.description}>{post.description}</Text>
               </View>
-              <View style={styles.bottomBox}>
-                <FlatList
-                  data={activeAssignments}
-                  renderItem={renderItem}
-                  keyExtractor={(item) => item.id}
-                />
-                <FlatList
-                  data={inactiveAssignments}
-                  renderItem={renderItem}
-                  keyExtractor={(item) => item.id}
-                />
-                <FlatList
-                  data={finishedAssignments}
-                  renderItem={renderItem}
-                  keyExtractor={(item) => item.id}
-                />
-              </View>
+              {
+                <View style={styles.bottomBox}>
+                  {/* <Text>{post.atitle}</Text> */}
+                  {/* <FlatList
+                    data={post.atitle}
+                    renderItem={({ item }) => <Text>{item.atitle}</Text>}
+                    keyExtractor={(item) => item.aid}
+                  /> */}
+                  {/* <FlatList
+                    data={completedAssignments}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                  /> */}
+                </View>
+              }
             </>
           );
         })
