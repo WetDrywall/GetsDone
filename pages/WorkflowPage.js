@@ -9,6 +9,7 @@ import {
   containerColor,
 } from "../components/Colors";
 import { apiLink } from "../components/ApiConfig";
+import { ScrollView } from "react-native-gesture-handler";
 
 const AssignmentList = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -49,16 +50,20 @@ const AssignmentList = ({ navigation }) => {
                 <View style={styles.topBox}>
                   <Text style={styles.title}>{post.title}</Text>
                   <Text style={styles.description}>{post.description}</Text>
+                  <Text style={styles.date}>Deadline: {post.deadline}</Text>
                 </View>
               );
             })}
             <View style={styles.itemContainer2}>
-              {data2.map((post) => {
-                return (
-                  <View style={styles.bottomBox}>
-                    <Text style={styles.title}>{post.aTitle}</Text>
-                    <Text style={styles.description}>{post.aDescription}</Text>
-                    {/* <FlatList
+              <ScrollView>
+                {data2.map((post) => {
+                  return (
+                    <View style={styles.bottomBox}>
+                      <Text style={styles.title}>{post.aTitle}</Text>
+                      <Text style={styles.description}>
+                        {post.aDescription}
+                      </Text>
+                      {/* <FlatList
                       data={post.atitle}
                       renderItem={({ item }) => <Text>{item.atitle}</Text>}
                       keyExtractor={(item) => item.aid}
@@ -68,9 +73,10 @@ const AssignmentList = ({ navigation }) => {
                       renderItem={renderItem}
                       keyExtractor={(item) => item.id}
                     /> */}
-                  </View>
-                );
-              })}
+                    </View>
+                  );
+                })}
+              </ScrollView>
             </View>
           </>
         )}
@@ -96,6 +102,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     backgroundColor: bgColor,
+    marginTop: 10,
   },
   topBox: {
     margin: 5,
