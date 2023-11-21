@@ -8,6 +8,8 @@ import {
 } from "../components/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { apiLink } from "../components/ApiConfig";
+import "core-js/stable/atob";
+import { jwtDecode } from "jwt-decode";
 
 const LoginPage = ({ navigation, handleLogin }) => {
   const [email, setEmail] = useState("");
@@ -23,10 +25,15 @@ const LoginPage = ({ navigation, handleLogin }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data); // This will log the response to the console
-        if (data[0].uId != null && data[0].uId > 0) {
+        const decoded = jwtDecode(data);
+
+        var uid = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+
+        if (uid != null && uid > 0) {
           console.log("smidt i asyncstorage");
-          AsyncStorage.setItem("UId", JSON.stringify(data[0].uId));
-          handleLogin(data[0].uId);
+          AsyncStorage.setItem("UId", uid);
+          AsyncStorage.setItem("Token", data);
+          handleLogin(uid);
           navigation.navigate("My Workflows");
         }
       })
