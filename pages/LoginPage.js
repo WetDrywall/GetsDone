@@ -15,7 +15,7 @@ const LoginPage = ({ handleLogin }) => {
 
   const login = () => {
     // Handle the login logic here
-    const apiUrl = `${apiLink}/api/UserLogin?email=${encodeURIComponent(
+    const apiUrl = `${apiLink}api/UserLogin?email=${encodeURIComponent(
       email
     )}&password=${encodeURIComponent(password)}`;
 
