@@ -7,6 +7,7 @@ import {
   textFieldColor,
 } from "../components/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { apiLink } from "../components/ApiConfig";
 
 const LoginPage = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ const LoginPage = ({ handleLogin }) => {
 
   const login = () => {
     // Handle the login logic here
-    const apiUrl = `https://da8a-185-93-87-250.ngrok-free.app/api/UserLogin?email=${encodeURIComponent(
+    const apiUrl = `${apiLink}/api/UserLogin?email=${encodeURIComponent(
       email
     )}&password=${encodeURIComponent(password)}`;
 
