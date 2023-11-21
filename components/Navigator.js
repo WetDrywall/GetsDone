@@ -117,6 +117,10 @@ export default function Navigator({ isLoggedIn, handleLogin }) {
           component={WorkflowPage}
           options={{
             drawerItemStyle: { display: "none" },
+            headerTintColor: fgColor,
+            headerStyle: {
+              backgroundColor: headerTitleColor,
+            },
           }}
         />
       </Drawer.Navigator>

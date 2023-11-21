@@ -4,18 +4,14 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { fgColor, containerColor } from "./Colors";
 import { apiLink } from "./ApiConfig";
 
-const WorkflowCard = ({ navigation, title, description, deadline }) => {
+const WorkflowCard = ({ navigation }) => {
   const handlePress = () => {
-    navigation.navigate("Workflow", {
-      title: title,
-      description: description,
-      deadline: deadline,
-    });
+    navigation.navigate("Workflow");
   };
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const url = `${apiLink}/api/ListWorkflow?wfid=1&uid=1`;
+  const url = `${apiLink}api/ListWorkflow?wfid=1&uid=1`;
 
   useEffect(() => {
     fetch(url)
@@ -37,7 +33,7 @@ const WorkflowCard = ({ navigation, title, description, deadline }) => {
               <Text style={styles.description} numberOfLines={3}>
                 {post.description.substring(0, 120)}...
               </Text>
-              <Text style={styles.date}>{deadline}</Text>
+              <Text style={styles.date}>{post.deadline}</Text>
             </View>
           );
         })
