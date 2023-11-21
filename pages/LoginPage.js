@@ -9,7 +9,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { apiLink } from "../components/ApiConfig";
 
-const LoginPage = ({ handleLogin }) => {
+const LoginPage = ({ navigation, handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,10 +23,11 @@ const LoginPage = ({ handleLogin }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data); // This will log the response to the console
-        if(data[0].uId != null && data[0].uId > 0){
-          console.log('smidt i asyncstorage');
+        if (data[0].uId != null && data[0].uId > 0) {
+          console.log("smidt i asyncstorage");
           AsyncStorage.setItem("UId", JSON.stringify(data[0].uId));
           handleLogin(data[0].uId);
+          navigation.navigate("My Workflows");
         }
       })
       .catch((error) => {
