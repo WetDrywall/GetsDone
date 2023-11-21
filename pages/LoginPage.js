@@ -42,7 +42,7 @@ const LoginPage = ({ navigation, handleLogin }) => {
   // });
 
   return (
-    <View style={styles.container}>
+    <View style={styles.pageContainer}>
       <TextInput
         style={styles.input}
         onChangeText={(text) => setEmail(text)}
@@ -66,7 +66,7 @@ const LoginPage = ({ navigation, handleLogin }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  pageContainer: {
     flex: 1,
     justifyContent: "center",
     padding: 20,

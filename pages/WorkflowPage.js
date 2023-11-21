@@ -35,61 +35,70 @@ const AssignmentList = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("My Workflows")}>
-        <Feather name="corner-up-left" size={30} color={btnColor} />
-      </TouchableOpacity>
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <>
-          {data.map((post) => {
-            return (
-              <View style={styles.topBox}>
-                <Text style={styles.title}>{post.title}</Text>
-                <Text style={styles.description}>{post.description}</Text>
-              </View>
-            );
-          })}
-          {data2.map((post) => {
-            return (
-              <View style={styles.bottomBox}>
-                {/* <Text>{post.atitle}</Text>
-                <FlatList
-                  data={post.atitle}
-                  renderItem={({ item }) => <Text>{item.atitle}</Text>}
-                  keyExtractor={(item) => item.aid}
-                />
-                <FlatList
-                  data={completedAssignments}
-                  renderItem={renderItem}
-                  keyExtractor={(item) => item.id}
-                /> */}
-              </View>
-            );
-          })}
-        </>
-      )}
+    <View style={styles.pageContainer}>
+      <View style={styles.itemContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate("My Workflows")}>
+          <Feather name="corner-up-left" size={30} color={btnColor} />
+        </TouchableOpacity>
+        {loading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <>
+            {data.map((post) => {
+              return (
+                <View style={styles.topBox}>
+                  <Text style={styles.title}>{post.title}</Text>
+                  <Text style={styles.description}>{post.description}</Text>
+                </View>
+              );
+            })}
+            <View style={styles.itemContainer2}>
+              {data2.map((post) => {
+                return (
+                  <View style={styles.bottomBox}>
+                    <Text style={styles.title}>{post.aTitle}</Text>
+                    <Text style={styles.description}>{post.aDescription}</Text>
+                    {/* <FlatList
+                      data={post.atitle}
+                      renderItem={({ item }) => <Text>{item.atitle}</Text>}
+                      keyExtractor={(item) => item.aid}
+                    />
+                    <FlatList
+                      data={completedAssignments}
+                      renderItem={renderItem}
+                      keyExtractor={(item) => item.id}
+                    /> */}
+                  </View>
+                );
+              })}
+            </View>
+          </>
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  pageContainer: {
     flex: 1,
     padding: 10,
     backgroundColor: bgColor,
   },
-  topBox: {
-    backgroundColor: containerColor,
-    borderRadius: 10,
+  itemContainer: {
+    flex: 1,
     padding: 10,
+    borderRadius: 10,
+    backgroundColor: containerColor,
+  },
+  itemContainer2: {
+    flex: 1,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: bgColor,
+  },
+  topBox: {
     margin: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 3,
   },
   bottomBox: {
     backgroundColor: containerColor,
@@ -114,7 +123,6 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    flex: 1,
     color: fgColor,
   },
   date: {

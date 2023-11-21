@@ -5,7 +5,7 @@ import { bgColor } from "../components/Colors";
 
 const App = ({ navigation }) => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.pageContainer}>
       <WorkflowCard
         navigation={navigation}
         title="Title"
@@ -17,7 +17,7 @@ const App = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  pageContainer: {
     flex: 1,
     backgroundColor: bgColor,
   },

@@ -67,7 +67,7 @@ const CreateNewWorkflowPage = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.pageContainer}>
       <TouchableOpacity
         style={styles.box}
         onPress={() => setShowForm(!showForm)}
@@ -107,7 +107,7 @@ const CreateNewWorkflowPage = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  pageContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
