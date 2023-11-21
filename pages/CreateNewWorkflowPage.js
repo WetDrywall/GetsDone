@@ -28,7 +28,7 @@ const CreateNewWorkflowPage = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("https://817b-212-242-99-233.ngrok-free.app/api/ListUsers?uid=0")
+    fetch("https://da8a-185-93-87-250.ngrok-free.app/api/ListUsers?uid=0")
       .then((response) => response.json())
       .then((data) => {
         const emails = data.map((user) => user.email);
@@ -49,7 +49,7 @@ const CreateNewWorkflowPage = () => {
     //WUser skal vi få fra dropdown
     //Wfid skal være 0 hvis det er en ny,
     const apiUrl =
-      `https://817b-212-242-99-233.ngrok-free.app/api/SaveWorkflow?wfid=0&title=${encodeURIComponent(
+      `https://da8a-185-93-87-250.ngrok-free.app /api/SaveWorkflow?wfid=0&title=${encodeURIComponent(
         title
       )}&desc=${encodeURIComponent(description)}&wOwner=1&wUser=` +
       selectedUser;
