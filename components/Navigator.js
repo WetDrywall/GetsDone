@@ -19,15 +19,15 @@ const Drawer = createDrawerNavigator();
 
 export default function Navigator({ isLoggedIn, handleLogin }) {
   useEffect(() => {
-    AsyncStorage.getItem('UId')
-      .then(value => {
+    AsyncStorage.getItem("UId")
+      .then((value) => {
         handleLogin(value);
       })
-      .catch(e => {
+      .catch((e) => {
         // handle error
       });
-   }, []);
-   
+  }, []);
+
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -94,7 +94,9 @@ export default function Navigator({ isLoggedIn, handleLogin }) {
         />
         <Drawer.Screen
           name="Login"
-          component={props => <LoginPage {...props} handleLogin={handleLogin} />}
+          component={(props) => (
+            <LoginPage {...props} handleLogin={handleLogin} />
+          )}
           options={{
             drawerIcon: () => (
               <Feather name="log-in" size={16} color={fgColor} />

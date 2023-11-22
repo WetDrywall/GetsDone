@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
-  FlatList,
 } from "react-native";
 import { Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
@@ -30,8 +29,6 @@ const AssignmentList = ({ navigation }) => {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedUser, setSelectedUser] = useState("");
-  const [users, setUsers] = useState([]);
 
   const url = `${apiLink}api/ListWorkflow?wfid=1&uid=1`;
   const url2 = `${apiLink}api/ListWorkflowAssignment?wfid=1&aid>0`;
@@ -82,16 +79,6 @@ const AssignmentList = ({ navigation }) => {
                       <Text style={styles.description}>
                         {post.aDescription}
                       </Text>
-                      {/* <FlatList
-                      data={post.atitle}
-                      renderItem={({ item }) => <Text>{item.atitle}</Text>}
-                      keyExtractor={(item) => item.aid}
-                    />
-                    <FlatList
-                      data={completedAssignments}
-                      renderItem={renderItem}
-                      keyExtractor={(item) => item.id}
-                    /> */}
                     </View>
                   );
                 })}
@@ -124,15 +111,6 @@ const AssignmentList = ({ navigation }) => {
                 placeholder="Description"
                 placeholderTextColor={placeholderColor}
                 multiline={true}
-              />
-              <Text style={styles.label}>Assigned User</Text>
-              <TextInput
-                style={styles.textfield}
-                onChangeText={(text) => setDescription(text)}
-                value={description}
-                placeholder="Description"
-                placeholderTextColor={placeholderColor}
-                multiline={false}
               />
               <Button title="Create" onPress={handleCreate} color="#007BFF" />
             </View>
