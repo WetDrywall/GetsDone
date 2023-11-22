@@ -49,7 +49,24 @@ const AssignmentList = ({ navigation }) => {
       .finally(() => setLoading(false));
   }, []);
 
-  const handleCreate = () => {};
+  const handleCreate = () => {
+    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=1&title=${encodeURIComponent(
+      title
+    )}&desc=${encodeURIComponent(
+      description
+    )}&wOwner=1&assignmentNumber=0&completed=false`;
+
+    console.log(apiUrl);
+
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // This will log the response to the console
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <View style={styles.pageContainer}>
