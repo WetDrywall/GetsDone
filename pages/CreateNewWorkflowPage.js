@@ -28,7 +28,7 @@ const CreateNewWorkflowPage = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("https://da8a-185-93-87-250.ngrok-free.app/api/ListUsers?uid=0")
+    fetch("${apiLink}api/ListUsers?uid=0")
       .then((response) => response.json())
       .then((data) => {
         const emails = data.map((user) => user.email);
@@ -49,7 +49,7 @@ const CreateNewWorkflowPage = () => {
     //WUser skal vi få fra dropdown
     //Wfid skal være 0 hvis det er en ny,
     const apiUrl =
-      `https://da8a-185-93-87-250.ngrok-free.app /api/SaveWorkflow?wfid=0&title=${encodeURIComponent(
+      `${apiLink}api/SaveWorkflow?wfid=0&title=${encodeURIComponent(
         title
       )}&desc=${encodeURIComponent(description)}&wOwner=1&wUser=` +
       selectedUser;
@@ -69,7 +69,7 @@ const CreateNewWorkflowPage = () => {
   return (
     <View style={styles.pageContainer}>
       <TouchableOpacity
-        style={styles.box}
+        style={styles.btn}
         onPress={() => setShowForm(!showForm)}
       >
         <Icon name="add-circle-outline" size={30} color={btnIconColor} />
@@ -86,7 +86,7 @@ const CreateNewWorkflowPage = () => {
           />
           <Text style={styles.label}>Description</Text>
           <TextInput
-            style={styles.descriptionInput}
+            style={styles.textfield}
             onChangeText={(text) => setDescription(text)}
             value={description}
             placeholder="Description"
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: bgColor,
   },
-  box: {
+  btn: {
     width: 50,
     height: 50,
     justifyContent: "center",
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     color: fgColor,
     backgroundColor: textFieldColor,
   },
-  descriptionInput: {
+  textfield: {
     minHeight: 40,
     borderColor: "transparent",
     borderWidth: 1,

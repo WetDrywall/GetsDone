@@ -1,20 +1,37 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  Button,
+  FlatList,
+} from "react-native";
+import { Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import {
   fgColor,
   bgColor,
   btnColor,
+  btnIconColor,
   containerColor,
+  textFieldColor,
+  placeholderColor,
 } from "../components/Colors";
 import { apiLink } from "../components/ApiConfig";
 import { ScrollView } from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const AssignmentList = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [selectedUser, setSelectedUser] = useState("");
+  const [users, setUsers] = useState([]);
 
   const url = `${apiLink}api/ListWorkflow?wfid=1&uid=1`;
   const url2 = `${apiLink}api/ListWorkflowAssignment?wfid=1&aid>0`;
@@ -35,11 +52,13 @@ const AssignmentList = ({ navigation }) => {
       .finally(() => setLoading(false));
   }, []);
 
+  const handleCreate = () => {};
+
   return (
     <View style={styles.pageContainer}>
       <View style={styles.itemContainer}>
         <TouchableOpacity onPress={() => navigation.navigate("My Workflows")}>
-          <Feather name="corner-up-left" size={30} color={btnColor} />
+          <Feather name="corner-down-left" size={30} color={btnColor} />
         </TouchableOpacity>
         {loading ? (
           <Text>Loading...</Text>
@@ -80,6 +99,45 @@ const AssignmentList = ({ navigation }) => {
             </View>
           </>
         )}
+        <View>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => setShowForm(!showForm)}
+          >
+            <Icon name="add-circle-outline" size={30} color={btnIconColor} />
+          </TouchableOpacity>
+          {showForm && (
+            <View style={styles.formContainer}>
+              <Text style={styles.label}>Title</Text>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={(text) => setTitle(text)}
+                value={title}
+                placeholder="Title"
+                placeholderTextColor={placeholderColor}
+              />
+              <Text style={styles.label}>Description</Text>
+              <TextInput
+                style={styles.textfield}
+                onChangeText={(text) => setDescription(text)}
+                value={description}
+                placeholder="Description"
+                placeholderTextColor={placeholderColor}
+                multiline={true}
+              />
+              <Text style={styles.label}>Assigned User</Text>
+              <TextInput
+                style={styles.textfield}
+                onChangeText={(text) => setDescription(text)}
+                value={description}
+                placeholder="Description"
+                placeholderTextColor={placeholderColor}
+                multiline={false}
+              />
+              <Button title="Create" onPress={handleCreate} color="#007BFF" />
+            </View>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -136,6 +194,46 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: fgColor,
+  },
+  btn: {
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 25,
+    backgroundColor: btnColor,
+  },
+  formContainer: {
+    width: Dimensions.get("window").width * 0.9,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: containerColor,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+    color: fgColor,
+  },
+  textInput: {
+    height: 40,
+    borderColor: "transparent",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 10,
+    padding: 5,
+    color: fgColor,
+    backgroundColor: textFieldColor,
+  },
+  textfield: {
+    minHeight: 40,
+    borderColor: "transparent",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 10,
+    padding: 5,
+    color: fgColor,
+    backgroundColor: textFieldColor,
   },
 });
 
