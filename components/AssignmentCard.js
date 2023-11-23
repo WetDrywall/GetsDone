@@ -20,7 +20,10 @@ const AssignmentCard = ({ route }) => {
 
       fetch(url)
         .then((resp) => resp.json())
-        .then((data) => setAssignment(data))
+        .then((data) => {
+          setAssignment(data)
+          console.log(data)
+        })
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
 
@@ -41,9 +44,9 @@ const AssignmentCard = ({ route }) => {
       return newStates;
     });
 
-    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${wfId}&aid=${aId}&completed=true&isActive=false`;
+    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${wfId}&aid=${aId}&completed=true`;
 
-    console.log(apiUrl);
+    // console.log(apiUrl);
 
     fetch(apiUrl)
       .then((response) => response.json())
@@ -72,7 +75,7 @@ const AssignmentCard = ({ route }) => {
             >
               <CheckBox
                 style={styles.checkbox}
-                value={checkboxStates[index]}
+                value={post.completed}
                 onValueChange={() => handleChange(index)}
                 disabled={!post.isActive}
               />
