@@ -14,21 +14,17 @@ const AccountPage = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   const saveChanges = () => {
-    console.log("saveChanges");
     const fetchData = async () => {
-      console.log("fetchData");
       const token = await AsyncStorage.getItem("Token");
-      console.log(token);
       const apiUrl = `${apiLink}api/SaveUser?jwtToken=${token}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(
         email)}&password=${encodeURIComponent(password)}`;
-      console.log(apiUrl);
       fetch(apiUrl)
         .then((resp) => resp.json())
         .then(navigation.navigate("My Workflows"))
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
     };
-    console.log(password + " " + password2);
+
     if(password == password2){
       fetchData();
     }

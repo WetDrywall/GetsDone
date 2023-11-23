@@ -15,6 +15,10 @@ const LoginPage = ({ navigation, handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const signup = () => { 
+    navigation.navigate("Signup");
+  };
+
   const login = () => {
     // Handle the login logic here
     const apiUrl = `${apiLink}api/UserLogin?email=${encodeURIComponent(
@@ -83,6 +87,7 @@ const LoginPage = ({ navigation, handleLogin }) => {
         secureTextEntry
       />
       <Button title="Login" onPress={login} />
+      <Button title="Signup" onPress={signup} />
     </View>
   );
 };
