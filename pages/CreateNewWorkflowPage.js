@@ -105,11 +105,15 @@ const CreateNewWorkflowPage = () => {
             placeholderTextColor={placeholderColor}
             multiline={true}
           />
-          <Text style={styles.label}>Assigned User</Text>
-          <RNPickerSelect
-            onValueChange={(value) => setSelectedUser(value)}
-            items={users.map((user) => ({ label: user, value: user }))}
-            style={styles.dropdown}
+          <Text style={styles.label}>Assign User</Text>
+          <TextInput
+            style={styles.textfield}
+            onChangeText={(text) => setSelectedUser(text)}
+            value={users}
+            placeholder="email"
+            placeholderTextColor={placeholderColor}
+            keyboardType="email-address"
+            multiline={false}
           />
           <Button title="Create" onPress={handleCreate} color="#007BFF" />
         </View>
