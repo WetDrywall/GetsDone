@@ -8,6 +8,7 @@ import React, { useState } from "react";
 const AssignmentCard = ({ route }) => {
   const wfId = route.params.wfId;
   const aId = route.params.aId;
+  const completed = route.params.completed;
   const [assignments, setAssignment] = useState([]);
   const [loading, setLoading] = useState(true);
   const [checkboxStates, setCheckboxStates] = useState([]);
@@ -29,7 +30,7 @@ const AssignmentCard = ({ route }) => {
         setLoading(true);
         setCheckboxStates([]);
       };
-    }, [wfId, aId])
+    }, [wfId, aId, completed])
   );
 
   const handleChange = (index) => {
@@ -60,7 +61,13 @@ const AssignmentCard = ({ route }) => {
       ) : (
         assignments.map((post, index) => {
           return (
-            <View style={styles.assignmentBox} key={index}>
+            <View
+              style={[
+                styles.assignmentBox,
+                { backgroundColor: completed ? "transparent" : containerColor },
+              ]}
+              key={index}
+            >
               <CheckBox
                 style={styles.checkbox}
                 value={checkboxStates[index]}
