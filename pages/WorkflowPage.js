@@ -24,6 +24,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import AssignmentCard from "../components/AssignmentCard";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const AssignmentList = ({ navigation, route }) => {
   const wfId = route.params.wfId;
@@ -33,6 +34,8 @@ const AssignmentList = ({ navigation, route }) => {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -69,11 +72,11 @@ const AssignmentList = ({ navigation, route }) => {
   );
 
   const handleCreate = () => {
-    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${wfId}&title=${encodeURIComponent(
+    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${wfId}&aid=0&title=${encodeURIComponent(
       title
     )}&desc=${encodeURIComponent(
       description
-    )}&wOwner=1&assignmentNumber=0&completed=false`;
+    )}&wOwner=1&assignmentNumber=0&completed=false&deadline=${selectedDate.toISOString()}`;
 
     console.log(apiUrl);
 
@@ -151,6 +154,18 @@ const AssignmentList = ({ navigation, route }) => {
                 placeholderTextColor={placeholderColor}
                 multiline={true}
               />
+              {showDatePicker && (
+                <DateTimePicker
+                  value={selectedDate}
+                  onChange={(event, date) => {
+                    if (date) {
+                      setSelectedDate(date);
+                      setShowDatePicker(false);
+                    }
+                  }}
+                />
+              )}
+              <Button title="Show Date Picker" onPress={() => setShowDatePicker(true)} />
               <Button title="Create" onPress={handleCreate} color="#007BFF" />
             </View>
           )}
