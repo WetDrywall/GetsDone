@@ -23,8 +23,10 @@ import { ScrollView } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
 import CheckBox from "expo-checkbox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
-const AssignmentList = ({ navigation }) => {
+const AssignmentList = ({ navigation, route }) => {
+  const key = route.params.key;
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,52 +35,49 @@ const AssignmentList = ({ navigation }) => {
   const [description, setDescription] = useState("");
   const [checkboxStates, setCheckboxStates] = useState([]);
 
-  console.log("WorkflowPage: " + AsyncStorage.getItem("Token"));
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        const token = await AsyncStorage.getItem("Token");
+        const url = `${apiLink}api/ListWorkflow?wfid=${key}&jwtToken=${token}`;
 
-  const url =
-    `${apiLink}api/ListWorkflow?wfid=1&jwtToken=` +
-    AsyncStorage.getItem("Token");
-  const url2 = `${apiLink}api/ListWorkflowAssignment?wfid=1&aid>0`;
+        fetch(url)
+          .then((resp) => resp.json())
+          .then((json) => setData(json))
+          .catch((error) => console.error(error))
+          .finally(() => setLoading(false));
+      };
 
-  // useEffect(() => {
-  //   fetch(url)
-  //     .then((resp) => resp.json())
-  //     .then((json) => setData(json))
-  //     .catch((error) => console.error(error))
-  //     .finally(() => setLoading(false));
-  // }, []);
+      fetchData();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = await AsyncStorage.getItem("Token");
-      const url = `${apiLink}api/ListWorkflow?wfid=1&jwtToken=${token}`;
+      const url2 = `${apiLink}api/ListWorkflowAssignment?wfid=${key}&aid=0`;
 
-      fetch(url)
+      fetch(url2)
         .then((resp) => resp.json())
-        .then((json) => setData(json))
+        .then((json) => setData2(json))
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
-    };
 
-    fetchData();
-  }, []);
+      setCheckboxStates(new Array(data2.length).fill(false));
 
-  useEffect(() => {
-    fetch(url2)
-      .then((resp) => resp.json())
-      .then((json) => setData2(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-
-    setCheckboxStates(new Array(data2.length).fill(false));
-  }, []);
+      return () => {
+        setData([]);
+        setData2([]);
+        setLoading(true);
+        setShowForm(false);
+        setTitle("");
+        setDescription("");
+        setCheckboxStates([]);
+      };
+    }, [key])
+  );
 
   const handleCreate = () => {
-    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=1&title=${encodeURIComponent(
+    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${key}&title=${encodeURIComponent(
       title
     )}&desc=${encodeURIComponent(
       description
-    )}&wOwner=1&assignmentNumber=0&completed=false`;
+    )}&wOwner=1&assignmentNumber=${aNumber}&completed=false`;
 
     console.log(apiUrl);
 
@@ -98,6 +97,19 @@ const AssignmentList = ({ navigation }) => {
       newStates[index] = !newStates[index];
       return newStates;
     });
+
+    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${key}&assignmentNumber=${aNumber}&completed=true`;
+
+    console.log(apiUrl);
+
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // This will log the response to the console
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -266,6 +278,7 @@ const styles = StyleSheet.create({
     color: fgColor,
     backgroundColor: textFieldColor,
   },
+  checkbox: {},
 });
 
 export default AssignmentList;

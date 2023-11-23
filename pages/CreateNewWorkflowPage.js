@@ -20,6 +20,7 @@ import {
   btnIconColor,
 } from "../components/Colors";
 import { apiLink } from "../components/ApiConfig";
+import { useFocusEffect } from "@react-navigation/native";
 
 const CreateNewWorkflowPage = () => {
   const [showForm, setShowForm] = useState(false);
@@ -28,21 +29,31 @@ const CreateNewWorkflowPage = () => {
   const [selectedUser, setSelectedUser] = useState("");
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    fetch(`${apiLink}api/ListUsers?uid=0`)
-      .then((response) => response.json())
-      .then((data) => {
-        const emails = data.map((user) => user.email);
-        return emails;
-      })
-      .then((emails) => {
-        console.log(emails); // This will log the array of emails to the console
-        setUsers(emails);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetch(`${apiLink}api/ListUsers?uid=0`)
+        .then((response) => response.json())
+        .then((data) => {
+          const emails = data.map((user) => user.email);
+          return emails;
+        })
+        .then((emails) => {
+          console.log(emails); // This will log the array of emails to the console
+          setUsers(emails);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+      return () => {
+        setUsers([]);
+        setShowForm(false);
+        setTitle("");
+        setDescription("");
+        setSelectedUser("");
+      };
+    }, [])
+  );
 
   const handleCreate = () => {
     // Handle the creation of the new workflow here
