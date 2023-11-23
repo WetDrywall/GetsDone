@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   inactiveAssignmentBox: {
-    backgroundColor: containerColor,
+    backgroundColor: "transparent",
     borderRadius: 10,
     padding: 10,
     margin: 5,
