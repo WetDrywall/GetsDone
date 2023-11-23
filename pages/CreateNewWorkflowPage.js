@@ -19,6 +19,7 @@ import {
   btnColor,
   btnIconColor,
 } from "../components/Colors";
+import { apiLink } from "../components/ApiConfig";
 
 const CreateNewWorkflowPage = () => {
   const [showForm, setShowForm] = useState(false);
@@ -28,7 +29,7 @@ const CreateNewWorkflowPage = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("${apiLink}api/ListUsers?uid=0")
+    fetch(`${apiLink}api/ListUsers?uid=0`)
       .then((response) => response.json())
       .then((data) => {
         const emails = data.map((user) => user.email);
