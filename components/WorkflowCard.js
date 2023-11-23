@@ -4,46 +4,38 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { fgColor, containerColor } from "./Colors";
 import { apiLink } from "./ApiConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
-const WorkflowCard = ({ navigation }) => {
-  const handlePress = () => {
-    navigation.navigate("Workflow");
-  };
+const WorkflowCard = ({ navigation, route }) => {
+  const key = route.params.key;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // console.log("WorkflowCard: ");
-  // console.log(AsyncStorage.getItem("Token"))
+  const handlePress = () => {
+    navigation.navigate("Workflow", { key: key });
+  };
 
-  //const url = `${apiLink}api/ListWorkflow?wfid=1&uid=` + AsyncStorage.getItem("Token").tostring();
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        const token = await AsyncStorage.getItem("Token");
+        const url = `${apiLink}api/ListWorkflow?wfid=${key}&jwtToken=${token}`;
 
-  // console.log(url);
+        fetch(url)
+          .then((resp) => resp.json())
+          .then((json) => setData(json))
+          .catch((error) => console.error(error))
+          .finally(() => setLoading(false));
+      };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = await AsyncStorage.getItem("Token");
-      const url = `${apiLink}api/ListWorkflow?wfid=1&jwtToken=${token}`;
-   
-      console.log(url);
-   
-      fetch(url)
-        .then((resp) => resp.json())
-        .then((json) => setData(json))
-        .catch((error) => console.error(error))
-        .finally(() => setLoading(false));
-    };
-   
-    fetchData();
-   }, []);
-   
+      fetchData();
 
-  // useEffect(() => {
-  //   fetch(url)
-  //     .then((resp) => resp.json())
-  //     .then((json) => setData(json))
-  //     .catch((error) => console.error(error))
-  //     .finally(() => setLoading(false));
-  // }, []);
+      return () => {
+        setData([]);
+        setLoading(true);
+      };
+    }, [key])
+  );
 
   return (
     <TouchableOpacity style={styles.card} onPress={handlePress}>
