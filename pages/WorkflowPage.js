@@ -72,22 +72,24 @@ const AssignmentList = ({ navigation, route }) => {
   );
 
   const handleCreate = () => {
-    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${wfId}&aid=0&title=${encodeURIComponent(
-      title
-    )}&desc=${encodeURIComponent(
-      description
-    )}&wOwner=1&assignmentNumber=0&completed=false&deadline=${selectedDate.toISOString()}`;
+    if(title.length > 0 && description.length > 0){
+      const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${wfId}&aid=0&title=${encodeURIComponent(
+        title
+      )}&desc=${encodeURIComponent(
+        description
+      )}&wOwner=1&assignmentNumber=0&completed=false&deadline=${selectedDate.toISOString()}`;
 
-    console.log(apiUrl);
+      console.log(apiUrl);
 
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data); // This will log the response to the console
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data); // This will log the response to the console
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   return (
