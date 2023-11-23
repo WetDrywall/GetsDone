@@ -29,7 +29,7 @@ export default Sidebar = (props) => (
           source={require("../assets/Default_Profile_Picture.png")}
           style={styles.profile}
         />
-        <Text style={styles.name}>Walter W. White</Text>
+        <Text style={styles.name}></Text>
       </ImageBackground>
 
       <View style={styles.container}>
