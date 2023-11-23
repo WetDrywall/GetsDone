@@ -21,6 +21,7 @@ import {
 import { apiLink } from "../components/ApiConfig";
 import { ScrollView } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
+import CheckBox from "expo-checkbox";
 
 const AssignmentList = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -29,6 +30,7 @@ const AssignmentList = ({ navigation }) => {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [checkboxStates, setCheckboxStates] = useState([]);
 
   const url = `${apiLink}api/ListWorkflow?wfid=1&uid=1`;
   const url2 = `${apiLink}api/ListWorkflowAssignment?wfid=1&aid>0`;
@@ -47,6 +49,8 @@ const AssignmentList = ({ navigation }) => {
       .then((json) => setData2(json))
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
+
+    setCheckboxStates(new Array(data2.length).fill(false));
   }, []);
 
   const handleCreate = () => {
@@ -68,6 +72,14 @@ const AssignmentList = ({ navigation }) => {
       });
   };
 
+  const handleChange = (index) => {
+    setCheckboxStates((prevStates) => {
+      const newStates = [...prevStates];
+      newStates[index] = !newStates[index];
+      return newStates;
+    });
+  };
+
   return (
     <View style={styles.pageContainer}>
       <View style={styles.itemContainer}>
@@ -80,7 +92,7 @@ const AssignmentList = ({ navigation }) => {
           <>
             {data.map((post) => {
               return (
-                <View style={styles.topBox}>
+                <View style={styles.hiddenWorkflowBox}>
                   <Text style={styles.title}>{post.title}</Text>
                   <Text style={styles.description}>{post.description}</Text>
                   <Text style={styles.date}>Deadline: {post.deadline}</Text>
@@ -89,9 +101,13 @@ const AssignmentList = ({ navigation }) => {
             })}
             <View style={styles.itemContainer2}>
               <ScrollView>
-                {data2.map((post) => {
+                {data2.map((post, index) => {
                   return (
-                    <View style={styles.bottomBox}>
+                    <View style={styles.assignmentBox}>
+                      <CheckBox
+                        value={checkboxStates[index]}
+                        onValueChange={() => handleChange(index)}
+                      />
                       <Text style={styles.title}>{post.aTitle}</Text>
                       <Text style={styles.description}>
                         {post.aDescription}
@@ -157,10 +173,10 @@ const styles = StyleSheet.create({
     backgroundColor: bgColor,
     marginTop: 10,
   },
-  topBox: {
+  hiddenWorkflowBox: {
     margin: 5,
   },
-  bottomBox: {
+  assignmentBox: {
     backgroundColor: containerColor,
     borderRadius: 10,
     padding: 10,
