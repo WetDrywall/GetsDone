@@ -9,6 +9,7 @@ import CreateNewWorkflowPage from "../pages/CreateNewWorkflowPage";
 import AccountPage from "../pages/AccountPage";
 import LoginPage from "../pages/LoginPage";
 import WorkflowPage from "../pages/WorkflowPage";
+import SignupPage from "../pages/SignupPage";
 
 import SideBar from "./SideBar";
 import { fgColor, headerTitleColor } from "./Colors";
@@ -117,6 +118,17 @@ export default function Navigator({ isLoggedIn, handleLogin }) {
         <Drawer.Screen
           name="Workflow"
           component={WorkflowPage}
+          options={{
+            drawerItemStyle: { display: "none" },
+            headerTintColor: fgColor,
+            headerStyle: {
+              backgroundColor: headerTitleColor,
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="Signup"
+          component={SignupPage}
           options={{
             drawerItemStyle: { display: "none" },
             headerTintColor: fgColor,
