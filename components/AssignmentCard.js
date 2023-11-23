@@ -9,6 +9,7 @@ const AssignmentCard = ({ route }) => {
   const wfId = route.params.wfId;
   const aId = route.params.aId;
   const completed = route.params.completed;
+  const isActive = route.params.isActive;
   const [assignments, setAssignment] = useState([]);
   const [loading, setLoading] = useState(true);
   const [checkboxStates, setCheckboxStates] = useState([]);
@@ -30,7 +31,7 @@ const AssignmentCard = ({ route }) => {
         setLoading(true);
         setCheckboxStates([]);
       };
-    }, [wfId, aId, completed])
+    }, [wfId, aId, completed, isActive])
   );
 
   const handleChange = (index) => {
@@ -40,7 +41,7 @@ const AssignmentCard = ({ route }) => {
       return newStates;
     });
 
-    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${wfId}&assignmentNumber=${aId}&completed=true`;
+    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${wfId}&aid=${aId}&completed=true&isActive=false`;
 
     console.log(apiUrl);
 
@@ -62,16 +63,18 @@ const AssignmentCard = ({ route }) => {
         assignments.map((post, index) => {
           return (
             <View
-              style={[
-                styles.assignmentBox,
-                { backgroundColor: completed ? "transparent" : containerColor },
-              ]}
+              style={
+                post.isActive
+                  ? styles.activeAssignmentBox
+                  : styles.inactiveAssignmentBox
+              }
               key={index}
             >
               <CheckBox
                 style={styles.checkbox}
                 value={checkboxStates[index]}
                 onValueChange={() => handleChange(index)}
+                disabled={!post.isActive}
               />
               <Text style={styles.title}>{post.aTitle}</Text>
               <Text style={styles.description}>{post.aDescription}</Text>
@@ -85,7 +88,18 @@ const AssignmentCard = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  assignmentBox: {
+  activeAssignmentBox: {
+    backgroundColor: containerColor,
+    borderRadius: 10,
+    padding: 10,
+    margin: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  inactiveAssignmentBox: {
     backgroundColor: containerColor,
     borderRadius: 10,
     padding: 10,
