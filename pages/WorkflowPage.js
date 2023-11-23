@@ -117,7 +117,13 @@ const AssignmentList = ({ navigation, route }) => {
                   <AssignmentCard
                     key={index}
                     navigation={navigation}
-                    route={{ params: { wfId: post.wfId, aId: post.aId } }}
+                    route={{
+                      params: {
+                        wfId: post.wfId,
+                        aId: post.aId,
+                        completed: post.completed,
+                      },
+                    }}
                   />
                 ))}
               </ScrollView>
