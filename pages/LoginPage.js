@@ -24,16 +24,31 @@ const LoginPage = ({ navigation, handleLogin }) => {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // This will log the response to the console
         const decoded = jwtDecode(data);
 
         var uid = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
 
         if (uid != null && uid > 0) {
           console.log("smidt i asyncstorage");
-          AsyncStorage.setItem("UId", uid);
-          AsyncStorage.setItem("Token", data);
-          handleLogin(uid);
+          // AsyncStorage.setItem("UId", uid);
+          AsyncStorage.setItem("Token", data)
+            .then(() => {
+              AsyncStorage.getItem("Token")
+                .then((value) => {
+                  console.log(value);
+                })
+                .catch((error) => {
+                  console.error(error);
+                });
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+
+          // AsyncStorage.setItem("Token", data);
+          // console.log(data);
+          // console.log(AsyncStorage.getItem("Token"));
+          handleLogin(data);
           navigation.navigate("My Workflows");
         }
       })
