@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { fgColor, containerColor } from "./Colors";
 import { apiLink } from "./ApiConfig";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const WorkflowCard = ({ navigation }) => {
   const handlePress = () => {
@@ -11,15 +12,38 @@ const WorkflowCard = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const url = `${apiLink}api/ListWorkflow?wfid=1&uid=1`;
+  // console.log("WorkflowCard: ");
+  // console.log(AsyncStorage.getItem("Token"))
+
+  //const url = `${apiLink}api/ListWorkflow?wfid=1&uid=` + AsyncStorage.getItem("Token").tostring();
+
+  // console.log(url);
 
   useEffect(() => {
-    fetch(url)
-      .then((resp) => resp.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
+    const fetchData = async () => {
+      const token = await AsyncStorage.getItem("Token");
+      const url = `${apiLink}api/ListWorkflow?wfid=1&jwtToken=${token}`;
+   
+      console.log(url);
+   
+      fetch(url)
+        .then((resp) => resp.json())
+        .then((json) => setData(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    };
+   
+    fetchData();
+   }, []);
+   
+
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((resp) => resp.json())
+  //     .then((json) => setData(json))
+  //     .catch((error) => console.error(error))
+  //     .finally(() => setLoading(false));
+  // }, []);
 
   return (
     <TouchableOpacity style={styles.card} onPress={handlePress}>

@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 
 export default function Navigator({ isLoggedIn, handleLogin }) {
   useEffect(() => {
-    AsyncStorage.getItem('UId')
+    AsyncStorage.getItem("Token")
       .then(value => {
         handleLogin(value);
       })

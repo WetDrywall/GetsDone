@@ -22,6 +22,7 @@ import {
 import { apiLink } from "../components/ApiConfig";
 import { ScrollView } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AssignmentList = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -33,16 +34,33 @@ const AssignmentList = ({ navigation }) => {
   const [selectedUser, setSelectedUser] = useState("");
   const [users, setUsers] = useState([]);
 
-  const url = `${apiLink}api/ListWorkflow?wfid=1&uid=1`;
+  console.log("WorkflowPage: " + AsyncStorage.getItem("Token"));
+
+  const url = `${apiLink}api/ListWorkflow?wfid=1&jwtToken=` + AsyncStorage.getItem("Token");
   const url2 = `${apiLink}api/ListWorkflowAssignment?wfid=1&aid>0`;
 
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((resp) => resp.json())
+  //     .then((json) => setData(json))
+  //     .catch((error) => console.error(error))
+  //     .finally(() => setLoading(false));
+  // }, []);
+
   useEffect(() => {
-    fetch(url)
-      .then((resp) => resp.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
+    const fetchData = async () => {
+      const token = await AsyncStorage.getItem("Token");
+      const url = `${apiLink}api/ListWorkflow?wfid=1&jwtToken=${token}`;
+   
+      fetch(url)
+        .then((resp) => resp.json())
+        .then((json) => setData(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    };
+   
+    fetchData();
+   }, []);
 
   useEffect(() => {
     fetch(url2)
