@@ -24,7 +24,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import AssignmentCard from "../components/AssignmentCard";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const AssignmentList = ({ navigation, route }) => {
   const wfId = route.params.wfId;
@@ -120,6 +120,7 @@ const AssignmentList = ({ navigation, route }) => {
                         wfId: post.wfId,
                         aId: post.aId,
                         completed: post.completed,
+                        isActive: post.isActive,
                       },
                     }}
                   />
@@ -165,7 +166,10 @@ const AssignmentList = ({ navigation, route }) => {
                   }}
                 />
               )}
-              <Button title="Show Date Picker" onPress={() => setShowDatePicker(true)} />
+              <Button
+                title="Show Date Picker"
+                onPress={() => setShowDatePicker(true)}
+              />
               <Button title="Create" onPress={handleCreate} color="#007BFF" />
             </View>
           )}
