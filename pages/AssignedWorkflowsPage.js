@@ -33,14 +33,11 @@ const App = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.pageContainer}>
-      {workflows.map((workflow, index) => (
+      {workflows.map((post, index) => (
         <WorkflowCard
           key={index}
           navigation={navigation}
-          route={{ params: { key: workflow.wfId } }}
-          title={workflow.title}
-          description={workflow.description}
-          deadline={workflow.deadline}
+          route={{ params: { wfId: post.wfId } }}
         />
       ))}
     </ScrollView>

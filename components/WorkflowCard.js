@@ -7,19 +7,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 
 const WorkflowCard = ({ navigation, route }) => {
-  const key = route.params.key;
+  const wfId = route.params.wfId;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handlePress = () => {
-    navigation.navigate("Workflow", { key: key });
+    navigation.navigate("Workflow", { wfId: wfId });
   };
 
   useFocusEffect(
     React.useCallback(() => {
       const fetchData = async () => {
         const token = await AsyncStorage.getItem("Token");
-        const url = `${apiLink}api/ListWorkflow?wfid=${key}&jwtToken=${token}`;
+        const url = `${apiLink}api/ListWorkflow?wfid=${wfId}&jwtToken=${token}`;
 
         fetch(url)
           .then((resp) => resp.json())
@@ -34,7 +34,7 @@ const WorkflowCard = ({ navigation, route }) => {
         setData([]);
         setLoading(true);
       };
-    }, [key])
+    }, [wfId])
   );
 
   return (
@@ -49,7 +49,7 @@ const WorkflowCard = ({ navigation, route }) => {
               <Text style={styles.description} numberOfLines={3}>
                 {post.description.substring(0, 120)}...
               </Text>
-              <Text style={styles.date}>{post.deadline}</Text>
+              <Text style={styles.date}>Deadline: {post.deadline}</Text>
             </View>
           );
         })

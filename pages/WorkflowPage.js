@@ -7,7 +7,7 @@ import {
   Button,
 } from "react-native";
 import { Dimensions } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import {
   fgColor,
@@ -21,25 +21,24 @@ import {
 import { apiLink } from "../components/ApiConfig";
 import { ScrollView } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
-import CheckBox from "expo-checkbox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import AssignmentCard from "../components/AssignmentCard";
 
 const AssignmentList = ({ navigation, route }) => {
-  const key = route.params.key;
+  const wfId = route.params.wfId;
   const [data, setData] = useState([]);
-  const [data2, setData2] = useState([]);
+  const [assignments, setAssignment] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [checkboxStates, setCheckboxStates] = useState([]);
 
   useFocusEffect(
     React.useCallback(() => {
       const fetchData = async () => {
         const token = await AsyncStorage.getItem("Token");
-        const url = `${apiLink}api/ListWorkflow?wfid=${key}&jwtToken=${token}`;
+        const url = `${apiLink}api/ListWorkflow?wfid=${wfId}&jwtToken=${token}`;
 
         fetch(url)
           .then((resp) => resp.json())
@@ -50,55 +49,31 @@ const AssignmentList = ({ navigation, route }) => {
 
       fetchData();
 
-      const url2 = `${apiLink}api/ListWorkflowAssignment?wfid=${key}&aid=0`;
+      const url2 = `${apiLink}api/ListWorkflowAssignment?wfid=${wfId}&aid=0`;
 
       fetch(url2)
         .then((resp) => resp.json())
-        .then((json) => setData2(json))
+        .then((data) => setAssignment(data))
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
 
-      setCheckboxStates(new Array(data2.length).fill(false));
-
       return () => {
         setData([]);
-        setData2([]);
+        setAssignment([]);
         setLoading(true);
         setShowForm(false);
         setTitle("");
         setDescription("");
-        setCheckboxStates([]);
       };
-    }, [key])
+    }, [wfId])
   );
 
   const handleCreate = () => {
-    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${key}&title=${encodeURIComponent(
+    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${wfId}&title=${encodeURIComponent(
       title
     )}&desc=${encodeURIComponent(
       description
-    )}&wOwner=1&assignmentNumber=${aNumber}&completed=false`;
-
-    console.log(apiUrl);
-
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data); // This will log the response to the console
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  const handleChange = (index) => {
-    setCheckboxStates((prevStates) => {
-      const newStates = [...prevStates];
-      newStates[index] = !newStates[index];
-      return newStates;
-    });
-
-    const apiUrl = `${apiLink}api/SaveWorkflowAssignment?wfid=${key}&assignmentNumber=${aNumber}&completed=true`;
+    )}&wOwner=1&assignmentNumber=0&completed=false`;
 
     console.log(apiUrl);
 
@@ -133,20 +108,13 @@ const AssignmentList = ({ navigation, route }) => {
             })}
             <View style={styles.itemContainer2}>
               <ScrollView>
-                {data2.map((post, index) => {
-                  return (
-                    <View style={styles.assignmentBox}>
-                      <CheckBox
-                        value={checkboxStates[index]}
-                        onValueChange={() => handleChange(index)}
-                      />
-                      <Text style={styles.title}>{post.aTitle}</Text>
-                      <Text style={styles.description}>
-                        {post.aDescription}
-                      </Text>
-                    </View>
-                  );
-                })}
+                {assignments.map((post, index) => (
+                  <AssignmentCard
+                    key={index}
+                    navigation={navigation}
+                    route={{ params: { wfId: post.wfId, aId: post.aId } }}
+                  />
+                ))}
               </ScrollView>
             </View>
           </>
@@ -208,21 +176,6 @@ const styles = StyleSheet.create({
   hiddenWorkflowBox: {
     margin: 5,
   },
-  assignmentBox: {
-    backgroundColor: containerColor,
-    borderRadius: 10,
-    padding: 10,
-    margin: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 3,
-  },
-  assignedUser: {
-    fontSize: 16,
-    color: fgColor,
-  },
   title: {
     fontSize: 20,
     fontWeight: "bold",
@@ -239,12 +192,14 @@ const styles = StyleSheet.create({
     color: fgColor,
   },
   btn: {
+    marginTop: 10,
     width: 50,
     height: 50,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,
     backgroundColor: btnColor,
+    alignSelf: "center",
   },
   formContainer: {
     width: Dimensions.get("window").width * 0.9,
@@ -278,7 +233,6 @@ const styles = StyleSheet.create({
     color: fgColor,
     backgroundColor: textFieldColor,
   },
-  checkbox: {},
 });
 
 export default AssignmentList;
