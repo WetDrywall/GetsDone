@@ -35,8 +35,9 @@ const AssignmentList = ({ navigation }) => {
 
   console.log("WorkflowPage: " + AsyncStorage.getItem("Token"));
 
-  const url = `${apiLink}api/ListWorkflow?wfid=1&jwtToken=` + AsyncStorage.getItem("Token");
-  const url = `${apiLink}api/ListWorkflow?wfid=1&uid=1`;
+  const url =
+    `${apiLink}api/ListWorkflow?wfid=1&jwtToken=` +
+    AsyncStorage.getItem("Token");
   const url2 = `${apiLink}api/ListWorkflowAssignment?wfid=1&aid>0`;
 
   // useEffect(() => {
@@ -51,16 +52,16 @@ const AssignmentList = ({ navigation }) => {
     const fetchData = async () => {
       const token = await AsyncStorage.getItem("Token");
       const url = `${apiLink}api/ListWorkflow?wfid=1&jwtToken=${token}`;
-   
+
       fetch(url)
         .then((resp) => resp.json())
         .then((json) => setData(json))
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
     };
-   
+
     fetchData();
-   }, []);
+  }, []);
 
   useEffect(() => {
     fetch(url2)
