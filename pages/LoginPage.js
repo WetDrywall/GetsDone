@@ -15,7 +15,7 @@ const LoginPage = ({ navigation, handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signup = () => { 
+  const signup = () => {
     navigation.navigate("Signup");
   };
 
@@ -30,7 +30,8 @@ const LoginPage = ({ navigation, handleLogin }) => {
       .then((data) => {
         const decoded = jwtDecode(data);
 
-        var uid = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+        var uid =
+          decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
 
         if (uid != null && uid > 0) {
           console.log("smidt i asyncstorage");
@@ -86,8 +87,8 @@ const LoginPage = ({ navigation, handleLogin }) => {
         placeholderTextColor={placeholderColor}
         secureTextEntry
       />
-      <Button title="Login" onPress={login} />
-      <Button title="Signup" onPress={signup} />
+      <Button title="Login" style={styles.btn} onPress={login} />
+      <Button title="Signup" style={styles.btn} onPress={signup} />
     </View>
   );
 };
@@ -107,6 +108,9 @@ const styles = StyleSheet.create({
     padding: 10,
     color: fgColor,
     backgroundColor: textFieldColor,
+  },
+  btn: {
+    margin: 5,
   },
 });
 
