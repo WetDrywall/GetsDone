@@ -36,6 +36,10 @@ const SignupPage = ({ navigation }) => {
     }
   };
 
+  const login = () => { 
+    navigation.navigate("Login");
+  };
+
   return (
     <View style={styles.pageContainer}>
       <TextInput
@@ -72,6 +76,7 @@ const SignupPage = ({ navigation }) => {
         secureTextEntry
       />
       <Button title="Sign up" onPress={signUp} />
+      <Button title="Login" onPress={login} />
     </View>
   );
 };
